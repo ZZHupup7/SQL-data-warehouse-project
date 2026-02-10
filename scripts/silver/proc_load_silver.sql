@@ -11,6 +11,7 @@ Script Purpose:
 		
 Parameters:
     None. 
+	  This stored procedure does not accept any parameters or return any values.
 
 Usage Example:
     EXEC Silver.load_silver;
@@ -50,8 +51,8 @@ BEGIN
 			TRIM(cst_firstname) AS cst_firstname,
 			TRIM(cst_lastname) AS cst_lastname,
 			CASE 
-				WHEN UPPER(TRIM(cst_marital_status)) = 'S' THEN 'Single'
-				WHEN UPPER(TRIM(cst_marital_status)) = 'M' THEN 'Married'
+				WHEN UPPER(TRIM(cst_material_status)) = 'S' THEN 'Single'
+				WHEN UPPER(TRIM(cst_material_status)) = 'M' THEN 'Married'
 				ELSE 'n/a'
 			END AS cst_marital_status, -- Normalize marital status values to readable format
 			CASE 
@@ -59,11 +60,11 @@ BEGIN
 				WHEN UPPER(TRIM(cst_gndr)) = 'M' THEN 'Male'
 				ELSE 'n/a'
 			END AS cst_gndr, -- Normalize gender values to readable format
-			cst_create_date
+			cst_creat_date
 		FROM (
 			SELECT
 				*,
-				ROW_NUMBER() OVER (PARTITION BY cst_id ORDER BY cst_create_date DESC) AS flag_last
+				ROW_NUMBER() OVER (PARTITION BY cst_id ORDER BY cst_creat_date DESC) AS flag_last
 			FROM bronze.crm_cust_info
 			WHERE cst_id IS NOT NULL
 		) t
