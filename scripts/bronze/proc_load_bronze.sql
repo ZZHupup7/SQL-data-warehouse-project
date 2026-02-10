@@ -12,6 +12,8 @@ Script Purpose:
     3. Logs the duration of each individual table load and the total batch.
     4. Provides basic error handling to capture and report failures.
 
+Parameters:
+    None
 
 Usage:
     EXEC bronze.load_bronze;
